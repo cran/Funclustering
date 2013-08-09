@@ -1,0 +1,4 @@
+Condition of use
+----------------
+Our packages use eigen a c++ template library which is under the Mozilla Public licence v.2.0(http://www.mozilla.org/MPL/2.0/). 
+See http://eigen.tuxfamily.org/ for mor information about eigen.

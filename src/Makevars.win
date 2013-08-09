@@ -1,0 +1,15 @@
+FUNCLUSTERINGDIR = ./Funclustering/
+FUNCLUSTERINGLIB = $(FUNCLUSTERINGDIR)libFunclustering.a
+PKG_CPPFLAGS = -DRPACKAGE $(SHLIB_OPENMP_CXXFLAGS)
+## Use the R_HOME indirection to support installations of multiple R version
+PKG_LIBS = `$(R_HOME)/bin/Rscript -e "Rcpp:::LdFlags()"` $(SHLIB_OPENMP_CXXFLAGS) -L$(FUNCLUSTERINGDIR) -lFunclustering
+
+.PHONY: all Funclustering
+
+all: $(SHLIB)
+$(SHLIB): Funclustering
+
+
+Funclustering:
+	(cd $(FUNCLUSTERINGDIR) && $(MAKE))
+	$(RANLIB) $(FUNCLUSTERINGLIB)
