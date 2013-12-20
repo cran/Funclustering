@@ -38,8 +38,8 @@ public:
 	 */
 	Model(Model const& modelToCopy);
 	virtual ~Model();
-    virtual void functionalPca(int nHarm, VectorXd weights);
-    virtual void mfpca(int nHarm, VectorXd weights);
+  virtual void functionalPca(int nHarm, VectorXd weights);
+  virtual void mfpca(int nHarm, VectorXd weights);
 	virtual void screeTest(int k);
 	virtual void screeTestDimIncrease(int k);
 	virtual void mStep(bool dimIncrease);

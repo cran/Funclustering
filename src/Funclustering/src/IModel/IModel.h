@@ -1,7 +1,7 @@
 #ifndef IMODEL_H_
 #define IMODEL_H_
 
-#include "../../../Eigen/Eigen"
+#include <Eigen/Eigen>
 #include <math.h>
 #include <limits>
 #include <vector>

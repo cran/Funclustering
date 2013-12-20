@@ -72,26 +72,26 @@
 #' res=funclust(fd,K=2,fixedDimension=c(2,2))
 #' 
 #' 
-#' # Multivariate
+#' # Multivariate (deactivated by default to comply with CRAN policies)
 #' # ---------  CanadianWeather (data from the package fda) --------
-#' CWtime<- 1:365
-#' CWrange<-c(1,365)
-#' CWbasis <- create.fourier.basis(CWrange, nbasis=65)
-#' harmaccelLfd <- vec2Lfd(c(0,(2*pi/365)^2,0), rangeval=CWrange)
+#' # CWtime<- 1:365
+#' # CWrange<-c(1,365)
+#' # CWbasis <- create.fourier.basis(CWrange, nbasis=65)
+#' # harmaccelLfd <- vec2Lfd(c(0,(2*pi/365)^2,0), rangeval=CWrange)
 #' 
 #' # -- Build the curves ---
-#' temp=CanadianWeather$dailyAv[,,"Temperature.C"]
-#' CWfd1 <- smooth.basisPar(
-#' CWtime, CanadianWeather$dailyAv[,,"Temperature.C"],CWbasis, 
-#' Lfdobj=harmaccelLfd, lambda=1e-2)$fd
-#' precip=CanadianWeather$dailyAv[,,"Precipitation.mm"]
-#' CWfd2 <- smooth.basisPar(
-#' CWtime, CanadianWeather$dailyAv[,,"Precipitation.mm"],CWbasis, 
-#' Lfdobj=harmaccelLfd, lambda=1e-2)$fd
+#' # temp=CanadianWeather$dailyAv[,,"Temperature.C"]
+#' # CWfd1 <- smooth.basisPar(
+#' # CWtime, CanadianWeather$dailyAv[,,"Temperature.C"],CWbasis, 
+#' # Lfdobj=harmaccelLfd, lambda=1e-2)$fd
+#' # precip=CanadianWeather$dailyAv[,,"Precipitation.mm"]
+#' # CWfd2 <- smooth.basisPar(
+#' # CWtime, CanadianWeather$dailyAv[,,"Precipitation.mm"],CWbasis, 
+#' # Lfdobj=harmaccelLfd, lambda=1e-2)$fd
 #' 
-#' CWfd=list(CWfd1,CWfd2) 
+#' # CWfd=list(CWfd1,CWfd2) 
 #' 
-#' res=funclust(CWfd,K=2)
+#' # res=funclust(CWfd,K=2)
 #' 
 #' 
 #' @useDynLib Funclustering
@@ -174,12 +174,45 @@ funclust <- function(fd,K,thd=0.05,increaseDimension=FALSE,hard=FALSE,fixedDimen
     warning("Convergence of the algorithm to a solution with at least one empty cluster.
             Restart or a choose a smaller value for K = ",K)
 	}
+
+  meanList <- list()
+	#creating mean output objects : meanj : mean curve class j
+	if(class(fd) == "fd"){
+    tempList <- list()
+    for (currClass in 1:K){
+      mean1       = fd
+      mean1$coefs = fd$coefs %*% outpobj@tik[, currClass] / sum(outpobj@tik[, currClass])
+      mean1$reps  = paste("mean", currClass, sep="")
+      tempList[[currClass]] <- mean1
+    }
+    meanList[[1]] <- tempList
+	}
+	else{
+    for (i in 1:length(fd)){
+      tempList <- list()
+      for (currClass in 1:K){
+        mean1       = fd[[i]]
+        mean1$coefs = fd[[i]]$coefs %*% outpobj@tik[, currClass] / sum(outpobj@tik[, currClass])
+        mean1$reps  = paste("mean", currClass, sep="")
+        tempList[[currClass]] <- mean1
+      }
+      meanList[[i]] <- tempList
+    }
+  }
+  
   # stores the result in a list
-	outputList=list(tik=outpobj@tik, cls=outpobj@cls, proportions=outpobj@proportions,
-			loglikelihood=outpobj@loglikelihood, loglikTotal=outpobj@loglikTotal,
-			aic=outpobj@aic, bic=outpobj@bic, icl=outpobj@icl,
-			dimensions=outpobj@dimensions, dimTotal=outpobj@dimTotal,
-			V=V
+	outputList = list(tik           = outpobj@tik,
+                    cls           = outpobj@cls,
+	                  proportions   = outpobj@proportions,
+	                  loglikelihood = outpobj@loglikelihood,
+	                  loglikTotal   = outpobj@loglikTotal,
+	                  aic           = outpobj@aic,
+	                  bic           = outpobj@bic,
+	                  icl           = outpobj@icl,
+	                  dimensions    = outpobj@dimensions,
+	                  dimTotal      = outpobj@dimTotal,
+	                  V             = V,
+	                  meanList      = meanList
 	)
 	return(outputList)
 }
