@@ -1,5 +1,5 @@
-a7257988fb4e28e0db12ee890d31e680 *DESCRIPTION
-306d733e84d64d74c8737baa42a24804 *NAMESPACE
+bb187e51b1f889e679d8079c37559144 *DESCRIPTION
+b710e44c7e63722a78eeaac45f6899b8 *NAMESPACE
 4386557eff9a41c7fa547a881a7841c1 *R/cpp_data.R
 661dbb206d2e81213a190c317e2faa73 *R/funclust.r
 b2b506ab4088c39f7b69fd2210c789c2 *R/harmCut.r
@@ -32,8 +32,8 @@ a84283d0b035e105dde760e8c813fcd5 *src/Funclustering/src/IModel/Model.cpp
 1e62dcac56632cf8ee52b1c7a3954910 *src/Funclustering/src/IStrategy/IStrategy.h
 72b1309f4b762afaba61c2b09aac4d9b *src/Funclustering/src/IStrategy/SimpleStrategy.cpp
 01d2e55764165f0d61a6c63759f53942 *src/Funclustering/src/IStrategy/SimpleStrategy.h
-c8f6879df9610dbbfa4ec352f754d06f *src/Makevars
-5f95c4a4dba8b7407a89b0c179f038c9 *src/Makevars.win
+19bbe5ef61e6af08ffa4be9214202000 *src/Makevars
+9cda1720bf22fe77f1a9574e27f8506a *src/Makevars.win
 7281c25050199d28819b4d3ef9eb39ce *src/RfunclustMain.cpp
 6735fdb11b27638accb7d72525abf1c8 *src/conversion.h
 5aaef2913311769af38844f831b59553 *src/mfpca.cpp

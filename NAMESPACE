@@ -7,3 +7,6 @@ useDynLib(Funclustering)
 import(Rcpp)
 import(fda)
 import(methods)
+importFrom("grDevices", "dev.new")
+importFrom("graphics", "par", "plot")
+
